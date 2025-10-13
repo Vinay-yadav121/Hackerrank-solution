@@ -1,0 +1,31 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int substrings(string n) {
+    long long total=0,prev=0;
+    int i=0;
+    int mod=1000000007;
+    while(n[i]!='\0'){
+        prev=(prev*10+(n[i]-'0')*(i+1))%mod;
+        total=(total+prev)%mod;
+        i++;
+    }
+    return total;
+}
+
+int main()
+{
+    ofstream fout(getenv("OUTPUT_PATH"));
+
+    string n;
+    getline(cin, n);
+
+    int result = substrings(n);
+
+    fout << result << "\n";
+
+    fout.close();
+
+    return 0;
+}
