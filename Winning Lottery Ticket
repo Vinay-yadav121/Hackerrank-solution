@@ -1,0 +1,27 @@
+long winningLotteryTicket(vector<string> tickets) {
+    const int FULL_MASK = (1 << 10) - 1; // 1023, all digits 0-9
+    vector<long long> count(FULL_MASK + 1, 0);
+
+    // Convert each ticket to a bitmask
+    for (const string& ticket : tickets) {
+        int mask = 0;
+        for (char c : ticket) {
+            mask |= 1 << (c - '0');
+        }
+        count[mask]++;
+    }
+
+    long long result = 0;
+    // Count pairs of masks that together cover all digits
+    for (int i = 0; i <= FULL_MASK; ++i) {
+        for (int j = i + 1; j <= FULL_MASK; ++j) {
+            if ((i | j) == FULL_MASK) {
+                result += count[i] * count[j];
+            }
+        }
+    }
+
+    // Add combinations within the same mask if it already contains all digits
+    result += count[FULL_MASK] * (count[FULL_MASK] - 1) / 2;
+    return result;
+}
