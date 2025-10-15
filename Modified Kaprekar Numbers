@@ -1,0 +1,14 @@
+def kaprekarNumbers(p, q):
+    found = False
+    for n in range(p, q + 1):
+        d = len(str(n))
+        sq = str(n ** 2)
+        right = int(sq[-d:]) if d <= len(sq) else 0
+        left = int(sq[:-d]) if len(sq) > d else 0
+
+        if left + right == n:
+            print(n, end=' ')
+            found = True
+
+    if not found:
+        print("INVALID RANGE")
